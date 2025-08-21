@@ -221,3 +221,13 @@ for names in model.lstm._all_weights:
 Even if you manually initialize, subtle differences (e.g., biases, forget-gate biases) can change learning trajectories.
 Keras often sets forget-gate bias to 1, PyTorch sets all biases to 0 by default.
 ```
+
+### 5. Try no pad_packed_sequence but still Weight Init & Forget Bias 
+
+Here we just undo pad packed sequence strategy (3) and just see the result. It makes the result worse:
+
+```
+Epoch 39/60, Train Loss: 1.5945, Val Loss: 1.6078, Val Acc: 0.2114
+Epoch 40/60, Train Loss: 1.5939, Val Loss: 1.6065, Val Acc: 0.2114
+Early stopping triggered
+```
