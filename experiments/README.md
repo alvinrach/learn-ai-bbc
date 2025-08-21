@@ -41,3 +41,7 @@ This is the first step for the PyTorch migration. We use bert-base-uncased. The 
 ## PyTorch Experimentation
 
 In order to migrate, there are several pytorch experiments to mimic the previous tensorflow notebooks. In the archive is the messy notebook that will be the base of experiments of 1-7
+
+### 1. First Torch Notebook: Still Use CPU
+
+We mimic adam epsilon to 1e-7 to make it same as TF epsilon. padding_idx=1 to mimic mask_zero=True. CrossEntropyLoss() is equivalent with categorical_crossentropy from TF. Num epochs to 60, patience to 15, LSTM hidden_size is 64, embedding_dim is 500. Lr 0.001 same as the default TF one.
