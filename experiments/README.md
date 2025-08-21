@@ -37,3 +37,7 @@ Same as before but this time using different method. Still use ```mask_zero=True
 ## 3. Hugginface Tokenization
 
 This is the first step for the PyTorch migration. We use bert-base-uncased. The vocab is not the same like before as we borrow token vocab from bert this time.
+
+## PyTorch Experimentation
+
+In order to migrate, there are several pytorch experiments to mimic the previous tensorflow notebooks. In the archive is the messy notebook that will be the base of experiments of 1-7
