@@ -252,3 +252,16 @@ Epoch 60/60, Train Loss: 0.9053, Val Loss: 1.0265, Val Acc: 0.8792
 ```
 
 So here the (4) still the best, and weight initialization is affecting the training.
+
+
+# Result
+
+The 4th is the best. So to mimic TF we need to apply:
+1. Weight initialization
+2. Forget bias = 1
+3. Pad Packed Sequence & Pack Padded Sequence
+4. Dont forget to use right epsilon for adam like in TF did (1e-7) because Pytorch's is 1e-8
+
+With these, we can mimic the convergence accuracy numbers over the time like TF we built before.
+
+Then the notebook 4 will be used as the Torch Version Notebook.
