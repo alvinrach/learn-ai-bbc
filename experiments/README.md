@@ -231,3 +231,14 @@ Epoch 39/60, Train Loss: 1.5945, Val Loss: 1.6078, Val Acc: 0.2114
 Epoch 40/60, Train Loss: 1.5939, Val Loss: 1.6065, Val Acc: 0.2114
 Early stopping triggered
 ```
+
+### 6. Try with pad_packed_sequence but only apply Weight Init
+
+We use the best one (4) but only apply weight init. The result is just good, and stuck.
+```
+Epoch 35/60, Train Loss: 0.9052, Val Loss: 1.1244, Val Acc: 0.7819
+Epoch 36/60, Train Loss: 0.9052, Val Loss: 1.1208, Val Acc: 0.7852
+Early stopping triggered
+```
+
+So here the (4) still the best, and forget bias = 1 is affecting the training.
