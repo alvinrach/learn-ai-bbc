@@ -1,6 +1,6 @@
 # Experiments
 
-1. Post Padding
+## 1. Post Padding
 
 Can we use post padding? Yes. But dont forget to add ```mask_zero=True```
 
@@ -30,10 +30,10 @@ array([[    0,     0,     0, ...,  1883,  1895,   556],
 ```
 when tokenizing
 
-2. Text Vectorization
+## 2. Text Vectorization
 
 Same as before but this time using different method. Still use ```mask_zero=True```
 
-3. Hugginface Tokenization
+## 3. Hugginface Tokenization
 
 This is the first step for the PyTorch migration. We use bert-base-uncased. The vocab is not the same like before as we borrow token vocab from bert this time.
