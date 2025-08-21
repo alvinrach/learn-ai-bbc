@@ -29,3 +29,7 @@ array([[    0,     0,     0, ...,  1883,  1895,   556],
 
 ```
 when tokenizing
+
+2. Text Vectorization
+
+Same as before but this time using different method. Still use ```mask_zero=True```
