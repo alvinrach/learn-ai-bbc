@@ -242,3 +242,13 @@ Early stopping triggered
 ```
 
 So here the (4) still the best, and forget bias = 1 is affecting the training.
+
+### 7. Try with pad_packed_sequence but only apply Forget Bias
+
+We use the best one (4) but only apply forget bias = 1. The result is better than before, but not the best.
+```
+Epoch 59/60, Train Loss: 0.9054, Val Loss: 1.0302, Val Acc: 0.8758
+Epoch 60/60, Train Loss: 0.9053, Val Loss: 1.0265, Val Acc: 0.8792
+```
+
+So here the (4) still the best, and weight initialization is affecting the training.
