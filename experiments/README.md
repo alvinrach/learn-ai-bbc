@@ -33,3 +33,7 @@ when tokenizing
 2. Text Vectorization
 
 Same as before but this time using different method. Still use ```mask_zero=True```
+
+3. Hugginface Tokenization
+
+This is the first step for the PyTorch migration. We use bert-base-uncased. The vocab is not the same like before as we borrow token vocab from bert this time.
