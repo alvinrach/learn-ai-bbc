@@ -173,3 +173,51 @@ Keras’ mask_zero=True prevents padded timesteps from affecting hidden states.
 Fix: use pack_padded_sequence in PyTorch.
 ```
 
+
+### 4. Weight Initialization & Forget Bias
+
+Key changes:
+
+```
+# 4) Weight initialization to mimic Keras
+def init_lstm_like_keras(m):
+    if isinstance(m, nn.Embedding):
+        # Keras embed init is usually uniform small; this is OK
+        nn.init.normal_(m.weight, mean=0.0, std=0.01)
+        if m.padding_idx is not None:
+            with torch.no_grad():
+                m.weight[m.padding_idx].fill_(0)
+    if isinstance(m, nn.Linear):
+        nn.init.xavier_uniform_(m.weight)
+        nn.init.zeros_(m.bias)
+    if isinstance(m, nn.LSTM):
+        for name, param in m.named_parameters():
+            if 'weight_ih' in name:
+                nn.init.xavier_uniform_(param.data)   # kernel ~ glorot
+            elif 'weight_hh' in name:
+                nn.init.orthogonal_(param.data)       # recurrent ~ orthogonal
+            elif 'bias' in name:
+                nn.init.zeros_(param.data)
+
+model.apply(init_lstm_like_keras)
+
+# 5) Set forget-gate bias = 1 (handles bias_ih + bias_hh)
+for names in model.lstm._all_weights:
+    for name in names:
+        if 'bias' in name:
+            bias = getattr(model.lstm, name)
+            n = bias.size(0)
+            # gates are i, f, g, o => forget gate slice is n//4 to n//4*2
+            start = n // 4
+            end = start + n // 4
+            with torch.no_grad():
+                bias[start:end].fill_(1.0)
+```
+
+- There is a difference between Pytorch weight initialization and Tensorflow. We mimic TF's weight initialization.
+- Set forget-gate bias = 1 (handles bias_ih + bias_hh)
+
+```
+Even if you manually initialize, subtle differences (e.g., biases, forget-gate biases) can change learning trajectories.
+Keras often sets forget-gate bias to 1, PyTorch sets all biases to 0 by default.
+```
