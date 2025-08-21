@@ -129,3 +129,47 @@ answer.columns = ['ArticleId', 'Category']
 
 answer
 ```
+
+### 3. Pad Packed Sequence 
+
+Key change of this notebook is:
+
+```
+    def forward(self, x):
+        # x: [batch_size, seq_len]
+        x = self.embedding(x)  # [batch_size, seq_len, embedding_dim]
+
+        # compute lengths of non-padded tokens
+        lengths = torch.sum(x.abs().sum(dim=2) != 0, dim=1)  # or use original input: x_input != 0
+        # pack the sequence
+        packed = pack_padded_sequence(x, lengths.cpu(), batch_first=True, enforce_sorted=False)
+        # pass through LSTM
+        packed_output, (h_n, c_n) = self.lstm(packed)
+        # unpack if needed (not necessary if just taking last hidden)
+        output, _ = pad_packed_sequence(packed_output, batch_first=True)
+
+        # take last hidden state for classification
+        x = h_n[-1]  # [batch_size, hidden_dim]
+        x = self.fc(x)  # [batch_size, output_dim]
+        x = F.softmax(x, dim=1)
+        return x
+```
+
+and also:
+
+```
+padding_idx=0
+```
+
+Reason
+
+```
+Padding / Masking
+
+Using padding_idx=0 in nn.Embedding doesn’t fully mask padded timesteps in LSTM.
+
+Keras’ mask_zero=True prevents padded timesteps from affecting hidden states.
+
+Fix: use pack_padded_sequence in PyTorch.
+```
+
