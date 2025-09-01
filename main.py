@@ -17,7 +17,7 @@ tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print("Using device:", device)
 
-loaded_model = torch.jit.load("./experiments/deployment/3a_model_traced.pt")
+loaded_model = torch.jit.load("./experiments/deployment/3b_model_scripted.pt", map_location=device)
 loaded_model.eval()
 
 @app.post('/predict')
