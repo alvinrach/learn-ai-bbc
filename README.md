@@ -53,3 +53,11 @@ Result
 ```
 
 Able to do batch prediction
+
+## Docker
+
+To use docker for deployment
+
+```
+docker-compose up -d --build
+```
