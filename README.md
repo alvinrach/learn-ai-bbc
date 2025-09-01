@@ -61,3 +61,13 @@ To use docker for deployment
 ```
 docker-compose up -d --build
 ```
+
+## Next
+
+Docker + GPU
+
+follow this
+
+https://chatgpt.com/c/68b58ad0-a648-8333-9ed0-a270440d96f6
+
+Last step was reinstalling docker snap to docker
