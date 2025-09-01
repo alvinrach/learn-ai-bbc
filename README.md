@@ -42,3 +42,14 @@ curl -X 'POST' \
   ]
 }'
 ```
+Result
+
+```
+0 business	
+1 entertainment	
+2 politics	
+3 sport	
+4 tech
+```
+
+Able to do batch prediction
